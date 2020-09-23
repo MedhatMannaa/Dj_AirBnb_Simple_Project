@@ -63,12 +63,12 @@ class Room(models.Model):
 # Main Unite Table
 class Unit(models.Model):
 
-    title = models.CharField(max_length=60, verbose_name='Unit Title', ) # Title
+    title = models.CharField(max_length=60, verbose_name='Unit Title', unique=True ,) # Title
     description = models.TextField(max_length=500, verbose_name='Unit Description') # Description
     price = models.DecimalField(max_digits=10,decimal_places=2) # How much Price
     num_bedrooms = models.IntegerField( verbose_name='Number of Bed rooms') # Count of Closed Rooms
     hole_space = models.IntegerField( verbose_name='Hole Space') # Count of Closed Rooms
-    #image = models.ImageField(upload_to='units_images/' , blank=True , null=True, verbose_name='Unit Main Image') # Internal Images
+    image = models.ImageField(upload_to='units_images/' , blank=True , null=True, verbose_name='Unit Main Image') # Internal Images
     active = models.BooleanField(default=True) # Post Status
     owner_email = models.EmailField(default='m.medhat@dropsgroup.com') # Email
     type = models.CharField(choices=UNIT_TYPE , default='FLAT',max_length=20) # Unite Type
@@ -79,7 +79,7 @@ class Unit(models.Model):
     #furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE) 
     furniture = models.ManyToManyField(Furniture) # Room Type
     Room = models.ManyToManyField(Room) # Room Type
-    remarks = models.TextField(max_length=500, verbose_name='Remarks') # Remarks
+    remarks = models.TextField(max_length=500, blank=True , null=True, verbose_name='Remarks') # Remarks
     created_at = models.DateTimeField(default=timezone.now) # Post Creation Date
 
     def __str__(self):
